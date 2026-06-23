@@ -19,7 +19,7 @@ if (process.env.DATABASE_URL) {
   // Fallback to local zero-config SQLite db for development ease
   sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: path.join(__dirname, '..', '..', 'database.sqlite'),
+    storage: process.env.DATABASE_PATH || path.join(__dirname, '..', '..', 'database.sqlite'),
     logging: false
   });
 }

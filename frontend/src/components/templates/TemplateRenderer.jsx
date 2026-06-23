@@ -5,6 +5,9 @@ import PremiumCreativeTemplate from './PremiumCreativeTemplate';
 import ProfessionalModernTemplate from './ProfessionalModernTemplate';
 import PinkMaroonModernTemplate from './PinkMaroonModernTemplate';
 import BlackMinimalistStructuralTemplate from './BlackMinimalistStructuralTemplate';
+import ProfessionalModernCv1Template from './ProfessionalModernCv1Template';
+import BlackYellowModernProfessionalTemplate from './BlackYellowModernProfessionalTemplate';
+import ProfessionalModernUiuxDesignerTemplate from './ProfessionalModernUiuxDesignerTemplate';
 
 export default function TemplateRenderer({ data, onChange }) {
   const { templateId = 'clean-ats', theme = {} } = data;
@@ -32,6 +35,12 @@ export default function TemplateRenderer({ data, onChange }) {
         return <PinkMaroonModernTemplate data={data} />;
       case 'black-minimalist-structural':
         return <BlackMinimalistStructuralTemplate data={data} />;
+      case 'professional-modern-cv-1':
+        return <ProfessionalModernCv1Template data={data} />;
+      case 'black-yellow-modern-professional':
+        return <BlackYellowModernProfessionalTemplate data={data} />;
+      case 'professional-modern-uiux-designer':
+        return <ProfessionalModernUiuxDesignerTemplate data={data} />;
       case 'clean-ats':
       default:
         return <CleanAtsTemplate data={data} />;

@@ -141,25 +141,37 @@ function App() {
         return (
           <div className="space-y-4">
             <h3 className="text-xs font-bold uppercase tracking-wider text-muted-foreground mb-4">Choose a Template</h3>
-            <div className="grid grid-cols-1 gap-3">
+            <div className="grid grid-cols-2 gap-3">
               {[
                 { id: 'clean-ats', name: 'Clean ATS', desc: 'Minimalist layout optimized for ATS parsing engines.' },
                 { id: 'modern-sidebar', name: 'Modern Sidebar', desc: 'Sleek two-column template with a highlighted sidebar section.' },
                 { id: 'premium-creative', name: 'Premium Creative', desc: 'Bold banner header with structured layout split columns.' },
                 { id: 'professional-modern', name: 'Professional Modern', desc: 'Classic centered header layout with balanced split columns.' },
                 { id: 'pink-maroon-modern', name: 'Pink & Maroon Modern', desc: 'Elegant layout with soft rose pink accents and rich maroon typography.' },
-                { id: 'black-minimalist-structural', name: 'Black Minimalist Structural', desc: 'A clean, high-contrast grid layout tailored for structural engineers, technical leads, and architects.' }
+                { id: 'black-minimalist-structural', name: 'Black Minimalist Structural', desc: 'A clean, high-contrast grid layout tailored for structural engineers, technical leads, and architects.' },
+                { id: 'professional-modern-cv-1', name: 'Professional Modern CV Resume (1)', desc: 'Elegant light gray sidebar layout with overlapping dark charcoal header block.' },
+                { id: 'black-yellow-modern-professional', name: 'Black Yellow Modern Professional Resume', desc: 'Premium dark sidebar with yellow geometric accents and linking vertical timeline.' },
+                { id: 'professional-modern-uiux-designer', name: 'Professional Modern UIUX Designer Resume', desc: 'Slate-navy header box enclosing name with border gap, cool gray sidebar, and custom language dot ratings.' }
               ].map(tpl => (
                 <div
                   key={tpl.id}
                   onClick={() => setResumeData(prev => ({ ...prev, templateId: tpl.id }))}
                   className={cn(
-                    "border rounded-xl p-4 cursor-pointer text-left transition-all hover:bg-zinc-850",
-                    resumeData.templateId === tpl.id ? "border-sky-500 bg-sky-500/5" : "border-zinc-800 bg-[#2a2b2d]/10"
+                    "border rounded-xl p-2 cursor-pointer text-left transition-all hover:bg-zinc-850 flex flex-col justify-between h-full",
+                    resumeData.templateId === tpl.id ? "border-sky-500 bg-sky-500/5 ring-1 ring-sky-500/20" : "border-zinc-800 bg-[#2a2b2d]/10"
                   )}
                 >
-                  <div className="text-xs font-bold text-foreground mb-1">{tpl.name}</div>
-                  <div className="text-[10px] text-muted-foreground leading-snug">{tpl.desc}</div>
+                  <div className="w-full aspect-[1/1.4] bg-zinc-900 rounded-lg overflow-hidden border border-zinc-800/80 mb-2 flex items-center justify-center">
+                    <img 
+                      src={`/templates/${tpl.id}.png`} 
+                      alt={tpl.name} 
+                      className="w-full h-full object-cover object-top hover:scale-105 transition-transform duration-300"
+                    />
+                  </div>
+                  <div>
+                    <div className="text-[10px] font-bold text-foreground leading-tight line-clamp-1">{tpl.name}</div>
+                    <div className="text-[8px] text-muted-foreground leading-snug line-clamp-2 mt-0.5">{tpl.desc}</div>
+                  </div>
                 </div>
               ))}
             </div>

@@ -1,5 +1,5 @@
 const STORAGE_KEY = "resume-api-base-url";
-export const DEFAULT_API_BASE = "http://localhost:3001";
+export const DEFAULT_API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:3001";
 
 export function getApiBase() {
   if (typeof window === "undefined") return DEFAULT_API_BASE;

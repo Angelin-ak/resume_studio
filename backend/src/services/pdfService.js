@@ -49,14 +49,35 @@ async function generatePdf(resumeData) {
     templateHtml = templates.renderPinkMaroonModern(prunedData, imageBase64);
   } else if (templateId === 'black-minimalist-structural') {
     templateHtml = templates.renderBlackMinimalistStructural(prunedData, imageBase64);
+  } else if (templateId === 'professional-modern-cv-1') {
+    templateHtml = templates.renderProfessionalModernCv1(prunedData, imageBase64);
+  } else if (templateId === 'black-yellow-modern-professional') {
+    templateHtml = templates.renderBlackYellowModernProfessional(prunedData, imageBase64);
+  } else if (templateId === 'professional-modern-uiux-designer') {
+    templateHtml = templates.renderProfessionalModernUiuxDesigner(prunedData, imageBase64);
   } else {
     templateHtml = templates.renderCleanAts(prunedData, imageBase64);
   }
 
-  const primaryColor = theme.primaryColor || (templateId === 'pink-maroon-modern' ? '#801f31' : '#0f766e');
-  const secondaryColor = theme.secondaryColor || (templateId === 'pink-maroon-modern' ? '#801f31' : '#1e293b');
+  const primaryColor = theme.primaryColor || (
+    templateId === 'pink-maroon-modern' ? '#801f31' :
+    templateId === 'professional-modern-cv-1' ? '#1C1D21' :
+    templateId === 'black-yellow-modern-professional' ? '#FFB800' :
+    templateId === 'professional-modern-uiux-designer' ? '#1F2E3D' :
+    '#0f766e'
+  );
+  const secondaryColor = theme.secondaryColor || (
+    templateId === 'pink-maroon-modern' ? '#801f31' :
+    templateId === 'professional-modern-cv-1' ? '#E5E5E5' :
+    templateId === 'black-yellow-modern-professional' ? '#333333' :
+    templateId === 'professional-modern-uiux-designer' ? '#EAEFF5' :
+    '#1e293b'
+  );
   const textColor = theme.textColor || '#1f2937';
-  const backgroundColor = theme.backgroundColor || (templateId === 'pink-maroon-modern' ? '#FAF4F0' : '#ffffff');
+  const backgroundColor = theme.backgroundColor || (
+    templateId === 'pink-maroon-modern' ? '#FAF4F0' :
+    '#ffffff'
+  );
   const fontFamily = theme.fontFamily === 'Georgia' ? 'Georgia, serif' : theme.fontFamily === 'Monospace' ? 'monospace' : theme.fontFamily === 'Montserrat' ? 'Montserrat, sans-serif' : 'sans-serif';
 
   const fullHtml = `
@@ -125,7 +146,8 @@ async function generatePdf(resumeData) {
   // Start puppeteer session
   const browser = await puppeteer.launch({
     headless: 'new',
-    args: ['--no-sandbox', '--disable-setuid-sandbox']
+    executablePath: process.env.PUPPETEER_EXECUTABLE_PATH || undefined,
+    args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
   });
 
   try {
