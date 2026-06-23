@@ -1,0 +1,12 @@
+frontend/
+backend/node_modules/
+backend/database.sqlite
+backend/uploads/*.pdf
+backend/uploads/temp_*
+backend/previews_temp/
+backend/test_*.pdf
+backend/test_*.png
+node_modules/
+.git
+.gitignore
+README.md
