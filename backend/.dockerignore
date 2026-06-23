@@ -1,0 +1,10 @@
+node_modules
+database.sqlite
+uploads/*.pdf
+uploads/temp_*
+previews_temp
+test_*.pdf
+test_*.png
+.DS_Store
+.git
+.gitignore
