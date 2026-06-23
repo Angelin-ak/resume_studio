@@ -1,11 +1,19 @@
-# Use official Node.js image with Chromium dependencies (Node 22 is required by Puppeteer)
-FROM node:22-slim
+# Use official Ubuntu 24.04 (Noble Numbat) which contains GLIBC 2.39 (satisfying SQLite's GLIBC 2.38 requirement)
+FROM ubuntu:24.04
 
-# Install Chromium and its dependencies
+# Prevent interactive prompts during apt package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Install NodeSource Node.js 22 repository, Chromium, and font dependencies
 RUN apt-get update && apt-get install -y \
+    curl \
+    gnupg \
+    ca-certificates \
     chromium \
     fonts-ipafont-gothic fonts-wqy-zenhei fonts-thai-tlwg fonts-kacst fonts-freefont-ttf libxss1 \
     --no-install-recommends \
+    && curl -fsSL https://deb.nodesource.com/setup_22.x | bash - \
+    && apt-get install -y nodejs \
     && rm -rf /var/lib/apt/lists/*
 
 # Set Puppeteer configuration to use the system installed Chromium
@@ -18,7 +26,7 @@ WORKDIR /app
 # Copy backend package files from backend directory
 COPY backend/package*.json ./
 
-# Install dependencies (using npm install --omit=dev to avoid package-lock mismatch failures)
+# Install dependencies (using npm install --omit=dev)
 RUN npm install --omit=dev
 
 # Copy backend source code from backend directory
