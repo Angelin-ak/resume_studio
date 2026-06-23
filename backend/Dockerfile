@@ -1,5 +1,5 @@
-# Use official Node.js image with Chromium dependencies
-FROM node:18-slim
+# Use official Node.js image with Chromium dependencies (Node 22 is required by Puppeteer)
+FROM node:22-slim
 
 # Install Chromium and its dependencies
 RUN apt-get update && apt-get install -y \
@@ -18,8 +18,8 @@ WORKDIR /app
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci --only=production
+# Install dependencies (using npm install --omit=dev to avoid package-lock mismatch failures)
+RUN npm install --omit=dev
 
 # Copy backend source code
 COPY . .
