@@ -17,9 +17,16 @@ if (process.env.DATABASE_URL) {
   });
 } else {
   // Fallback to local zero-config SQLite db for development ease
+  const fs = require('fs');
+  const storagePath = process.env.DATABASE_PATH || path.join(__dirname, '..', '..', 'database.sqlite');
+  const storageDir = path.dirname(storagePath);
+  if (!fs.existsSync(storageDir)) {
+    fs.mkdirSync(storageDir, { recursive: true });
+  }
+
   sequelize = new Sequelize({
     dialect: 'sqlite',
-    storage: process.env.DATABASE_PATH || path.join(__dirname, '..', '..', 'database.sqlite'),
+    storage: storagePath,
     logging: false
   });
 }
